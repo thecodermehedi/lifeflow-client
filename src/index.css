@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:700|Poppins:400");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #ffffff;
+  color: #0e0101;
+}
+
+@layer components {
+  .btn {
+    @apply relative overflow-hidden bg-[#d30000] text-background rounded-lg;
+  }
+  .btn span {
+    @apply relative transition-all duration-500;
+  }
+  .btn::before {
+    content: "";
+    @apply absolute top-0 left-0 w-0 h-full bg-foreground transition-all duration-500 rounded-lg;
+  }
+  .btn:hover::before {
+    @apply w-full;
+  }
+}
+
+@layer components {
+  .btn-reverse {
+    @apply relative overflow-hidden bg-foreground text-background rounded-lg;
+  }
+  .btn-reverse span {
+    @apply relative transition-all duration-500;
+  }
+  .btn-reverse::before {
+    content: "";
+    @apply absolute top-0 left-0 w-0 h-full bg-[#d30000] transition-all duration-500 rounded-lg;
+  }
+  .btn-reverse:hover::before {
+    @apply w-full;
+  }
+}
+
+@layer components {
+  .btn-hover {
+    @apply relative overflow-hidden bg-transparent text-background rounded-lg;
+  }
+  .btn-hover span {
+    @apply relative transition-all duration-500;
+  }
+  .btn-hover::before {
+    content: "";
+    @apply absolute top-0 left-0 w-0 h-full bg-[#f4f4f5] transition-all duration-500 rounded-lg;
+  }
+  .btn-hover:hover::before {
+    @apply w-full;
+  }
+}
+
