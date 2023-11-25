@@ -1,12 +1,103 @@
-import {Link} from "react-router-dom";
-import Logo from "../../components/UI/LifeFlowLogo";
-import {User} from "react-feather";
+// React imports
 import {useState} from "react";
-import SelectInput from "../../components/UI/SeleteInput";
+import {Link, useNavigate} from "react-router-dom";
+
+// Third-party libraries
+import {User} from "react-feather";
+import {useForm} from "react-hook-form";
+import {toast} from "react-hot-toast";
+
+// Components
+import Logo from "../../components/UI/LifeFlowLogo";
 import SelectBloodGroup from "../../components/UI/SelectBloodGroup";
+import SelectDistrict from "../../components/UI/SelectDistrict";
+import SelectUpazila from "../../components/UI/SelectUpazila";
+
+// Hooks
+import useAuth from "../../hooks/useAuth";
+
+// API calls
+import {uploadPhoto} from "../../api/utils";
+import {saveUserToDB} from "../../api/auth";
+import {UploadCloud} from "react-feather";
+import {useEffect} from "react";
+
 const Register = () => {
+  // Auth functions
+  const {createUser, updateUserProfile} = useAuth();
+
+  // Form handling
+  const {register, watch, handleSubmit, reset, control} = useForm();
+
+  // Password visibility state
   const [isPasswordHidden, setPasswordHidden] = useState(true);
   const [isConfirmHidden, setConfirmHidden] = useState(true);
+
+  // Photo states
+  const [fileName, setFileName] = useState("");
+  const photoFile = watch("photo");
+  useEffect(() => {
+    if (photoFile && photoFile[0]) {
+      setFileName(photoFile[0].name);
+    }
+  }, [photoFile]);
+
+  // Navigation
+  const navigate = useNavigate();
+
+  // User registration handler
+  const handleRegister = async (data) => {
+    // Show loading toast
+    const toastLoading = toast.loading("Please wait...");
+
+    // Destructure form data
+    const {name, email, password, confirm, district, upazila, bloodGroup} =
+      data;
+    const photo = photoFile[0];
+
+    // Check password confirmation
+    if (password !== confirm) {
+      return toast.error("Passwords do not match", {id: toastLoading});
+    }
+    try {
+      // Upload profile picture
+      const photoData = await uploadPhoto(photo);
+      // console.log("Uploaded photo data: ", photoData);
+
+      // Create user
+      const result = await createUser(email, password);
+      // console.log("User creation result: ", result);
+
+      // Update user profile
+      await updateUserProfile(name, photoData?.data?.display_url);
+
+      // Save user to database
+      const newUser = {
+        name: result?.user?.displayName || name,
+        email: result?.user?.email || email,
+        district,
+        upazila,
+        bloodGroup,
+        avatar: result?.user?.photoURL || photoData?.data?.display_url,
+        role: "donor",
+        status: "active",
+      };
+      const dbResponse = await saveUserToDB(newUser);
+      console.log("Database save response: ", dbResponse);
+
+      // Reset form
+      reset();
+
+      // Navigate to home
+      navigate("/");
+
+      toast.success(`Welcome ${result?.user?.displayName}`, {id: toastLoading});
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
   return (
     <section className="bg-gray-100 min-h-screen">
       <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
@@ -34,7 +125,7 @@ const Register = () => {
             </div>
           </div>
           <div className="rounded-2xl bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit(handleRegister)} className="space-y-4">
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="name" className="block py-2 text-gray-500">
@@ -45,8 +136,11 @@ const Register = () => {
                     <input
                       type="text"
                       id="name"
+                      name="name"
+                      {...register("name", {required: true})}
                       placeholder="Mehedi Hasan"
                       className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-primary shadow-sm rounded-lg"
+                      required
                     />
                   </div>
                 </div>
@@ -71,8 +165,12 @@ const Register = () => {
                     </svg>
                     <input
                       type="text"
+                      id="email"
+                      name="email"
+                      {...register("email", {required: true})}
                       placeholder="username@example.com"
                       className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-primary shadow-sm rounded-lg"
+                      required
                     />
                   </div>
                 </div>
@@ -126,14 +224,20 @@ const Register = () => {
                     </button>
                     <input
                       type={isPasswordHidden ? "password" : "text"}
+                      id="password"
+                      name="password"
+                      {...register("password", {required: true})}
                       placeholder="Enter your password"
                       className="w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-primary shadow-sm rounded-lg"
+                      required
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-gray-600">Confirm Password</label>
+                  <label className="text-gray-600" htmlFor="confirm">
+                    Confirm Password
+                  </label>
                   <div className="relative max-w-xs mt-2">
                     <button
                       type="button"
@@ -178,6 +282,9 @@ const Register = () => {
                       )}
                     </button>
                     <input
+                      id="confirm"
+                      name="confirm"
+                      {...register("confirm", {required: true})}
                       type={isConfirmHidden ? "password" : "text"}
                       placeholder="Enter your password"
                       className="w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-primary shadow-sm rounded-lg"
@@ -189,28 +296,47 @@ const Register = () => {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                   <label className="text-gray-600">District</label>
-                  <SelectInput title={"District"} />
+                  <SelectDistrict control={control} />
                 </div>
                 <div>
                   <label className="text-gray-600">Upazila</label>
-                  <SelectInput title={"Upazila"} />
+                  <SelectUpazila control={control} />
                 </div>
               </div>
 
               <div>
                 <label htmlFor="blood-group">Blood Group</label>
-                <SelectBloodGroup />
+                <SelectBloodGroup control={control} />
               </div>
 
-              <div>
-                <label htmlFor="photo">Upload Profile Picture</label>
+              <div className="w-full">
                 <input
                   type="file"
-                  className="w-full rounded-lg mt-2 border-gray-200 border file:border-0 file:py-5 file:w-2/5 file:mr-5 file:bg-black file:text-white file:font-bold file:cursor-pointer "
+                  id="photo"
+                  name="photo"
+                  {...register("photo", {required: true})}
+                  className="hidden"
                 />
+                <label
+                  htmlFor="photo"
+                  className="group w-full border-2 border-dashed border-gray-400 rounded-lg p-8 flex flex-col justify-center items-center cursor-pointer btn-hover"
+                >
+                  <span>
+                    {fileName ? (
+                      <div className="text-foreground font-bold">
+                        Selected file:{" "}
+                        <span className="text-primary">{fileName}</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2 text-gray-700 group-hover:text-foreground font-bold">
+                        <UploadCloud /> Click to select a profile picture
+                      </div>
+                    )}
+                  </span>
+                </label>
               </div>
 
-              <div className="mt-4 w-full">
+              <div className="mt-4 w-full relative">
                 <button
                   type="submit"
                   className="inline-block w-full py-4 font-medium text-white btn"
