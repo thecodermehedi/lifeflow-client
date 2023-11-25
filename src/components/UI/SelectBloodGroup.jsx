@@ -1,48 +1,59 @@
 import * as Select from "@radix-ui/react-select";
 import React from "react";
+import {Controller} from "react-hook-form";
 
-const SelectBloodGroup = () => {
+const SelectBloodGroup = ({control}) => {
   const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
   return (
-    <Select.Root>
-      <div className="w-full mt-2">
-        <Select.Trigger className="w-full inline-flex items-center justify-between px-3 py-2  text-gray-600 bg-white border rounded-lg shadow-sm outline-none focus:border-primary">
-          <Select.Value placeholder="Select Blood Group" />
-          <Select.Icon className="text-gray-400">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 9l4-4 4 4m0 6l-4 4-4-4"
-              />
-            </svg>
-          </Select.Icon>
-        </Select.Trigger>
-        <Select.Portal>
-          <Select.Content
-            position="popper"
-            avoidCollisions={false}
-            className="w-[var(--radix-select-trigger-width)] mt-3 overflow-y-auto bg-white border rounded-lg shadow-sm "
-          >
-            <Select.Viewport className="">
-              {bloodGroups.map((item, idx) => (
-                <SelectItem key={idx} value={item}>
-                  {item}
-                </SelectItem>
-              ))}
-            </Select.Viewport>
-          </Select.Content>
-        </Select.Portal>
-      </div>
-    </Select.Root>
+    <Controller
+      name="bloodGroup"
+      control={control}
+      defaultValue=""
+      render={({field}) => (
+        <Select.Root
+          value={field.value}
+          onValueChange={field.onChange}
+        >
+          <div className="w-full mt-2">
+            <Select.Trigger className="w-full inline-flex items-center justify-between px-3 py-2  text-gray-600 bg-white border rounded-lg shadow-sm outline-none focus:border-primary">
+              <Select.Value placeholder="Select Blood Group" />
+              <Select.Icon className="text-gray-400">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 9l4-4 4 4m0 6l-4 4-4-4"
+                  />
+                </svg>
+              </Select.Icon>
+            </Select.Trigger>
+            <Select.Portal>
+              <Select.Content
+                position="popper"
+                avoidCollisions={false}
+                className="w-[var(--radix-select-trigger-width)] mt-3 overflow-y-auto bg-white border rounded-lg shadow-sm "
+              >
+                <Select.Viewport className="">
+                  {bloodGroups.map((item, idx) => (
+                    <SelectItem key={idx} value={item}>
+                      {item}
+                    </SelectItem>
+                  ))}
+                </Select.Viewport>
+              </Select.Content>
+            </Select.Portal>
+          </div>
+        </Select.Root>
+      )}
+    />
   );
 };
 
