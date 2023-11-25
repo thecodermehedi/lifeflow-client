@@ -11,8 +11,7 @@ import {
 } from "firebase/auth";
 import auth from "../config/firebase";
 
-//TODO: Clear cookie
-// import {clearCookie} from "../api/auth";
+import {clearCookie, getToken} from "../api/auth";
 
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
@@ -43,8 +42,6 @@ const AuthProvider = ({children}) => {
 
   const logOut = async () => {
     setIsUserLoading(true);
-    //TODO: Clear cookie
-    // await clearCookie();
     return signOut(auth);
   };
 
@@ -56,9 +53,15 @@ const AuthProvider = ({children}) => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      console.log("CurrentUser-->", currentUser);
+      if (currentUser) {
+        await getToken(currentUser?.email);
+        console.log("CurrentUser-->", currentUser?.displayName);
+      } else {
+        await clearCookie();
+        console.log("No user found");
+      }
       setIsUserLoading(false);
     });
     return () => {
