@@ -1,8 +1,8 @@
-import Banner from "../../components/UI/Banner";
-import Contact from "../../components/UI/Contact";
-import Stats from "../../components/UI/Stats";
-import Team from "../../components/UI/Team";
-import Testimonial from "../../components/UI/Testimonial";
+import Banner from "../../components/Home/Banner";
+import Contact from "../../components/Home/Contact";
+import Stats from "../../components/Home/Stats";
+import Team from "../../components/Home/Team";
+import Testimonial from "../../components/Home/Testimonial";
 const Home = () => {
   return (
     <section>
