@@ -1,10 +1,6 @@
 import axiosSecure from ".";
 
-// Save user to DB
-export const saveUserToDB = async (newUser) => {
-  const {data} = await axiosSecure.post("/users", newUser);
-  return data;
-};
+
 
 // Get token from server
 export const getToken = async (email) => {
