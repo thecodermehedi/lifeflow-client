@@ -130,7 +130,7 @@ const Register = () => {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="name" className="block py-2 text-gray-500">
-                    Name
+                    Name <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
                     <User className="w-6 h-6 text-gray-400 absolute left-3 inset-y-0 my-auto" />
@@ -140,14 +140,14 @@ const Register = () => {
                       name="name"
                       {...register("name", {required: true})}
                       placeholder="Mehedi Hasan"
-                      className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-primary shadow-sm rounded-lg"
+                      className="w-full pl-12 pr-3 py-2 placeholder:text-gray-500 text-gray-700 bg-transparent outline-none border focus:border-primary shadow-sm rounded-lg"
                       required
                     />
                   </div>
                 </div>
                 <div>
                   <label htmlFor="email" className="block py-2 text-gray-500">
-                    Email
+                    Email <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
                     <Mail className="w-6 h-6 text-gray-400 absolute left-3 inset-y-0 my-auto" />
@@ -166,7 +166,9 @@ const Register = () => {
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="text-gray-600">Password</label>
+                  <label className="text-gray-600">
+                    Password <span className="text-red-500">*</span>
+                  </label>
                   <div className="relative max-w-xs mt-2">
                     <button
                       type="button"
@@ -218,13 +220,14 @@ const Register = () => {
                       placeholder="Enter your password"
                       className="w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-primary shadow-sm rounded-lg"
                       required
+                      minLength={6}
                     />
                   </div>
                 </div>
 
                 <div>
                   <label className="text-gray-600" htmlFor="confirm">
-                    Confirm Password
+                    Confirm Password <span className="text-red-500">*</span>
                   </label>
                   <div className="relative max-w-xs mt-2">
                     <button
@@ -276,6 +279,8 @@ const Register = () => {
                       type={isConfirmHidden ? "password" : "text"}
                       placeholder="Enter your password"
                       className="w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-primary shadow-sm rounded-lg"
+                      required
+                      minLength={6}
                     />
                   </div>
                 </div>
@@ -283,18 +288,24 @@ const Register = () => {
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="text-gray-600">District</label>
-                  <SelectDistrict control={control} />
+                  <label className="text-gray-600">
+                    District <span className="text-red-500">*</span>
+                  </label>
+                  <SelectDistrict control={control} required={true} />
                 </div>
                 <div>
-                  <label className="text-gray-600">Upazila</label>
-                  <SelectUpazila control={control} />
+                  <label className="text-gray-600">
+                    Upazila <span className="text-red-500">*</span>
+                  </label>
+                  <SelectUpazila control={control} required={true} />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="blood-group">Blood Group</label>
-                <SelectBloodGroup control={control} />
+                <label htmlFor="blood-group">
+                  Blood Group <span className="text-red-500">*</span>
+                </label>
+                <SelectBloodGroup control={control} required={true} />
               </div>
 
               <div className="w-full">
@@ -304,6 +315,7 @@ const Register = () => {
                   name="photo"
                   {...register("photo", {required: true})}
                   className="hidden"
+                  required
                 />
                 <label
                   htmlFor="photo"
