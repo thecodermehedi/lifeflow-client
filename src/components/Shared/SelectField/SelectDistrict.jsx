@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import {Controller} from "react-hook-form";
 import useGeoLocation from "../../../hooks/useGeoLocation";
 
-const SelectDistrict = ({control, defaultValue}) => {
+const SelectDistrict = ({control, defaultValue, required}) => {
   const [value, setValue] = useState("");
   const {districtsArray} = useGeoLocation();
   const [districts, setDistricts] = useState(districtsArray);
@@ -21,7 +21,7 @@ const SelectDistrict = ({control, defaultValue}) => {
       name="district"
       control={control}
       defaultValue={defaultValue}
-      // rules={{ required: true }}
+      rules={{required: required && "District is required"}}
       render={({field}) => (
         <Select.Root
           value={field.value}
