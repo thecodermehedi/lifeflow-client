@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import {Controller} from "react-hook-form";
 import useGeoLocation from "../../../hooks/useGeoLocation";
 
-const SelectUpazila = ({control, defaultValue}) => {
+const SelectUpazila = ({control, defaultValue, required}) => {
   const [value, setValue] = useState("");
   const {upazilasArray} = useGeoLocation();
   const [upazilas, setUpazilas] = useState(upazilasArray);
@@ -20,7 +20,7 @@ const SelectUpazila = ({control, defaultValue}) => {
       name="upazila"
       control={control}
       defaultValue={defaultValue}
-      // rules={{ required: true }}
+      rules={{required: required && "Upazila is required"}}
       render={({field}) => (
         <Select.Root
           value={field.value}
