@@ -1,11 +1,9 @@
 import {createContext, useEffect, useState} from "react";
 import {
-  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
-  signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
@@ -14,7 +12,6 @@ import auth from "../config/firebase";
 import {clearCookie, getToken} from "../api/auth";
 
 export const AuthContext = createContext(null);
-const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
@@ -30,11 +27,6 @@ const AuthProvider = ({children}) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const signInWithGoogle = () => {
-    setIsUserLoading(true);
-    return signInWithPopup(auth, googleProvider);
-  };
-
   const resetPassword = (email) => {
     setIsUserLoading(true);
     return sendPasswordResetEmail(auth, email);
@@ -46,10 +38,10 @@ const AuthProvider = ({children}) => {
   };
 
   const updateUserProfile = (name, photo) => {
-    return updateProfile(auth.currentUser, {
-      displayName: name,
-      photoURL: photo,
-    });
+    let updateObject = {};
+    if (name) updateObject.displayName = name;
+    if (photo) updateObject.photoURL = photo;
+    return updateProfile(auth.currentUser, updateObject);
   };
 
   useEffect(() => {
@@ -57,7 +49,7 @@ const AuthProvider = ({children}) => {
       setUser(currentUser);
       if (currentUser) {
         await getToken(currentUser?.email);
-        console.log("CurrentUser-->", currentUser?.displayName);
+        console.log("CurrentUser-->", currentUser?.email);
       } else {
         await clearCookie();
         console.log("No user found");
@@ -78,7 +70,6 @@ const AuthProvider = ({children}) => {
     resetPassword,
     updateUserProfile,
     setIsUserLoading,
-    signInWithGoogle,
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
