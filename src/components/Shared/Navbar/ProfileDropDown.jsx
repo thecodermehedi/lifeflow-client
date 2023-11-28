@@ -5,7 +5,7 @@ import useAuth from "../../../hooks/useAuth";
 // Profile Dropdown
 const ProfileDropDown = (props) => {
   const [state, setState] = useState(false);
-  const {logOut} = useAuth();
+  const {user, logOut} = useAuth();
   const profileRef = useRef();
 
   const navigation = [
@@ -32,10 +32,7 @@ const ProfileDropDown = (props) => {
           className="w-10 h-10 outline-none rounded-full ring-offset-2 ring-gray-200 ring-2 lg:focus:ring-primary"
           onClick={() => setState(!state)}
         >
-          <img
-            src="https://randomuser.me/api/portraits/men/46.jpg"
-            className="w-full h-full rounded-full"
-          />
+          <img src={user?.photoURL} className="w-full h-full rounded-full" />
         </button>
         <div className="md:hidden">
           <span className="block">Micheal John</span>
