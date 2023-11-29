@@ -5,7 +5,17 @@ import useRequest from "../../../hooks/useRequest";
 
 const DonateToggle = ({id}) => {
   const {user} = useAuth();
-  const {UpdateStatusInProgress} = useRequest();
+  const {UpdateStatusInProgress, updateRequestDonorFn} = useRequest();
+
+  const handleUpdateRequestDonor = async () => {
+    const donorInfo = {
+      donorName: user?.displayName,
+      donorMail: user?.email,
+    };
+    await updateRequestDonorFn({id, donorInfo});
+    await UpdateStatusInProgress(id);
+  };
+
   return (
     <Dialog.Root className="fixed inset-0 z-10 overflow-y-auto ">
       <div className="text-center">
@@ -43,7 +53,7 @@ const DonateToggle = ({id}) => {
               </Dialog.Title>
 
               <Dialog.Description className=" text-sm text-gray-600">
-                <p>Donate Blood and Make a Difference in Someone&#39;s Life.</p>
+                Donate Blood and Make a Difference in Someone&#39;s Life.
               </Dialog.Description>
               <fieldset className="Fieldset relative">
                 <Mail className="absolute w-5 h-5 text-gray-400 left-3 top-3" />
@@ -65,7 +75,7 @@ const DonateToggle = ({id}) => {
               </fieldset>
               <Dialog.Close asChild>
                 <button
-                  onClick={() => UpdateStatusInProgress(id)}
+                  onClick={handleUpdateRequestDonor}
                   className="w-full mt-3 py-3 px-4 font-medium text-sm text-center text-white btn"
                 >
                   <span>Give the Gift of Life</span>
