@@ -6,7 +6,6 @@ const axiosSecure = axios.create({
   withCredentials: true,
 });
 
-console.log("axiosSecure", import.meta.env.VITE_API_URL);
 
 // intercept response and check for unauthorized responses.
 axiosSecure.interceptors.response.use(
