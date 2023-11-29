@@ -10,10 +10,15 @@ export const getRequests = async (email) => {
   return data;
 };
 
+
+export const getAllRequests = async () => {
+  const {data} = await axiosSecure(`/requests`);
+  return data;
+};
+
 export const updateRequest = async (id, newRequestInfo) => {
-  console.log("request", newRequestInfo);
+
   const {data} = await axiosSecure.patch(`/request/${id}`, newRequestInfo);
-  console.log("data", data);
   return data;
 };
 
@@ -24,5 +29,10 @@ export const deleteRequest = async (id) => {
 
 export const updateRequestStatus = async (id, status) => {
   const {data} = await axiosSecure.patch(`request/status/${id}`, {status});
+  return data;
+};
+
+export const getTotalRequests = async () => {
+  const {data} = await axiosSecure(`/requests/total`);
   return data;
 };
