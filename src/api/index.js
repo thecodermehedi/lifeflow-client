@@ -1,27 +1,29 @@
-import axios from 'axios'
-import { clearCookie } from './auth'
+import axios from "axios";
+import {clearCookie} from "./auth";
 
 const axiosSecure = axios.create({
-  baseURL: import.meta.env.VITE_API_URL_DEV,
+  baseURL:
+    import.meta.env.VITE_MODE === "production"
+      ? import.meta.env.VITE_API_URL_PROD || import.meta.env.VITE_API_URL_BACKUP
+      : import.meta.env.VITE_API_URL_DEV,
   withCredentials: true,
-})
+});
 
 // intercept response and check for unauthorized responses.
 axiosSecure.interceptors.response.use(
-  response => response,
-  async error => {
-    console.log('Error tracked in the interceptor', error.response)
+  (response) => response,
+  async (error) => {
+    console.log("Error tracked in the interceptor", error.response);
     if (
       error.response &&
       (error.response.status === 401 || error.response.status === 403)
     ) {
-      await clearCookie()
-      window.location.replace('/login')
+      await clearCookie();
+      window.location.replace("/login");
     }
 
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
-)
+);
 
-
-export default axiosSecure
+export default axiosSecure;
