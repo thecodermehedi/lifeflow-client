@@ -1,16 +1,30 @@
 import {useState, useRef, useEffect} from "react";
 import {Link} from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import useUser from "../../../hooks/useUser";
 
 // Profile Dropdown
 const ProfileDropDown = (props) => {
   const [state, setState] = useState(false);
   const {user, logOut} = useAuth();
+  const {currentUser} = useUser();
   const profileRef = useRef();
 
   const navigation = [
-    {title: "Dashboard", path: "/dashboard/home"},
-    {title: "Profile", path: "/dashboard/profile"},
+    {
+      title: "Dashboard",
+      path:
+        currentUser?.role === "admin" || currentUser?.role === "volunteer"
+          ? `/dashboard/${currentUser?.role}/home`
+          : "/dashboard/home",
+    },
+    {
+      title: "Profile",
+      path:
+        currentUser?.role === "admin" || currentUser?.role === "volunteer"
+          ? `/dashboard/${currentUser?.role}/profile`
+          : "/dashboard/profile",
+    },
   ];
 
   useEffect(() => {
