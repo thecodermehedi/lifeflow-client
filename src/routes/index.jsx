@@ -21,6 +21,9 @@ import DonationDetails from "../pages/Dashboard/Common/DonationDetails/DonationD
 import BlockRoute from "./BlockRoute";
 import PrivateRoute from "./PrivateRoute";
 import Spinner from "../components/Spinner";
+import AdminOrVolunteerRoute from "./AdminOrVolunteerRoute";
+import AuthorizedHome from "../pages/Dashboard/AuthorizedHome";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +61,7 @@ const router = createBrowserRouter([
         <DashboardLayout />
       </PrivateRoute>
     ),
+    errorElement: <NotFound />,
     children: [
       {
         path: "home",
@@ -68,7 +72,23 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: ":role/home",
+        element: (
+          <AdminOrVolunteerRoute>
+            <AuthorizedHome />
+          </AdminOrVolunteerRoute>
+        ),
+      },
+      {
         path: "profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: ":role/profile",
         element: (
           <PrivateRoute>
             <Profile />
@@ -111,11 +131,11 @@ const router = createBrowserRouter([
       },
       // Admin
       {
-        path: "all-users",
+        path: "admin/all-users",
         element: (
-          <PrivateRoute>
+          <AdminRoute>
             <Users />
-          </PrivateRoute>
+          </AdminRoute>
         ),
       },
       {
@@ -127,15 +147,15 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "content-management",
+        path: ":role/content-management",
         element: (
-          <PrivateRoute>
+          <AdminOrVolunteerRoute>
             <Content />
-          </PrivateRoute>
+          </AdminOrVolunteerRoute>
         ),
       },
       {
-        path: "content-management/add-blog",
+        path: ":role/content-management/add-blog",
         element: (
           <PrivateRoute>
             <AddBlog />
