@@ -2,12 +2,11 @@ import axios from "axios";
 import {clearCookie} from "./auth";
 
 const axiosSecure = axios.create({
-  baseURL:
-    import.meta.env.VITE_MODE === "production"
-      ? import.meta.env.VITE_API_URL_PROD || import.meta.env.VITE_API_URL_BACKUP
-      : import.meta.env.VITE_API_URL_DEV,
+  baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
 });
+
+console.log("axiosSecure", import.meta.env.VITE_API_URL);
 
 // intercept response and check for unauthorized responses.
 axiosSecure.interceptors.response.use(
