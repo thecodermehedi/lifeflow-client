@@ -12,7 +12,6 @@ const DashHome = () => {
     UpdateStatusCanceled,
     DeleteRequestFn,
   } = useRequest();
-  console.log(requests);
   if (isUserLoading || isRequestsLoading) {
     return <Spinner />;
   }
