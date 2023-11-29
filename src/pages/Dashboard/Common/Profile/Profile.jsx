@@ -88,7 +88,6 @@ const Profile = () => {
           profileUpdates.photoURL = photoData?.data?.display_url;
           newInfo.avatar = photoData?.data?.display_url;
         }
-        console.log(profileUpdates);
         await updateUserProfile(
           profileUpdates.displayName,
           profileUpdates.photoURL
@@ -110,8 +109,7 @@ const Profile = () => {
 
       if (shouldUpdateDB) {
         // Update user to database
-        const dbResponse = await updateUserToDBFn({userMail, newInfo});
-        console.log("Database update response: ", dbResponse);
+        await updateUserToDBFn({userMail, newInfo});
       }
 
       toast.dismiss(toastLoading);
@@ -134,7 +132,9 @@ const Profile = () => {
           src={user?.photoURL}
           alt="Photo"
         />
-        <h1 className="mt-5 capitalize border px-4 py-1 rounded-lg bg-red-100 text-primary">{currentUser?.role}</h1>
+        <h1 className="mt-5 capitalize border px-4 py-1 rounded-lg bg-red-100 text-primary">
+          {currentUser?.role}
+        </h1>
       </div>
       <form
         onSubmit={handleSubmit(handleUserUpdate)}
