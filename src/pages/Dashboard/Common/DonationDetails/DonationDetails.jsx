@@ -16,8 +16,6 @@ const DonationDetails = () => {
     }
   }, [id, requests]);
 
-  console.log(request);
-
   if (isRequestsLoading || !request) {
     return <Spinner />;
   }
