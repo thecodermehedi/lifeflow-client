@@ -34,7 +34,6 @@ const CreateRequest = () => {
 
     // Destructure form data
     const {name, hospital, district, upazila, address, message} = data;
-    // console.log(name, hospital, district, upazila, address, message);
     const date = dayjs().format("DD-MM-YYYY");
     const time = dayjs().format("h:mm A");
     const dateTime = dayjs();
@@ -53,11 +52,8 @@ const CreateRequest = () => {
         time,
         dateTime,
         status: "pending",
-        
       };
-      console.log("New request: ", newRequest);
-      const dbResponse = await mutateAsync(newRequest);
-      console.log("Database save response: ", dbResponse);
+      await mutateAsync(newRequest);
       toast.success("Request created successfully", {id: toastLoading});
       // Reset form
       reset();
