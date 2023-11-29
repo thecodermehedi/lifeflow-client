@@ -13,7 +13,7 @@ const useUser = () => {
     queryFn: async () => await getUser(userMail),
   });
 
-  const {data: users, isLoading: isUsersLoading} = useQuery({
+  const {data: users = [], isLoading: isUsersLoading} = useQuery({
     enabled: !isUserLoading && !!userMail && !!currentUser?.role === "admin",
     queryKey: ["users"],
     queryFn: async () => await getUsers(),

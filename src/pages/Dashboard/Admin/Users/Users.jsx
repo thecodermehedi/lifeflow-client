@@ -19,11 +19,11 @@ const Users = () => {
     setSelectedStatus(event.target.value);
   };
 
-  const filteredUsers = users?.filter((request) => {
+  const filteredUsers = users?.filter((user) => {
     if (selectedStatus === "") {
       return true;
     }
-    return request.status === selectedStatus;
+    return user?.status === selectedStatus;
   });
   if (isUserLoading || isUsersLoading) {
     return <Spinner />;
@@ -81,32 +81,32 @@ const Users = () => {
                   <tr key={idx}>
                     <td className="flex items-center gap-x-3 py-3 px-6 whitespace-nowrap">
                       <img
-                        src={user.avatar}
+                        src={user?.avatar}
                         className="w-10 h-10 rounded-full"
                       />
                       <div>
                         <span className="block text-gray-700 text-sm font-medium">
-                          {user.name}
+                          {user?.name}
                         </span>
                         <span className="block text-gray-700 text-xs">
-                          {user.email}
+                          {user?.email}
                         </span>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span
                         className={`px-3 py-2 rounded-full font-semibold text-xs capitalize ${
-                          statusColors[user.status]
+                          statusColors[user?.status]
                         }`}
                       >
-                        {user.status}
+                        {user?.status}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap capitalize">
-                      {user.role}
+                      {user?.role}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      {user.status === "active" ? (
+                      {user?.status === "active" ? (
                         <button
                           onClick={() => UpdateStatusBlocked(user?._id)}
                           className="bg-red-200 text-primary font-semibold hover:bg-red-600 hover:text-foreground transition duration-150 px-3 py-2 rounded-lg capitalize"
@@ -123,11 +123,11 @@ const Users = () => {
                       )}
                     </td>
                     <td className="text-right px-6 whitespace-nowrap">
-                      {(user.role === "donor" || user.role === "admin") && (
+                      {(user?.role === "donor" || user?.role === "admin") && (
                         <button
                           className="px-3 py-2 rounded-lg bg-orange-200 text-orange-800 font-semibold  hover:bg-orange-600  hover:text-black"
                           onClick={() =>
-                            updateUserRoleFn({id: user._id, role: "volunteer"})
+                            updateUserRoleFn({id: user?._id, role: "volunteer"})
                           }
                         >
                           Make Volunteer
@@ -135,11 +135,11 @@ const Users = () => {
                       )}
                     </td>
                     <td className="text-right px-6 whitespace-nowrap">
-                    {(user.role === "donor" || user.role === "volunteer") && (
+                    {(user?.role === "donor" || user?.role === "volunteer") && (
                         <button
                           className="px-3 py-2 rounded-lg bg-blue-200 text-blue-800 font-semibold  hover:bg-blue-600  hover:text-black"
                           onClick={() =>
-                            updateUserRoleFn({id: user._id, role: "admin"})
+                            updateUserRoleFn({id: user?._id, role: "admin"})
                           }
                         >
                           Make Admin

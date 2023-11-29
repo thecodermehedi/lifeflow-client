@@ -22,11 +22,11 @@ const Content = () => {
     setSelectedStatus(event.target.value);
   };
 
-  const filteredBlogs = blogs?.filter((request) => {
+  const filteredBlogs = blogs?.filter((blog) => {
     if (selectedStatus === "") {
       return true;
     }
-    return request.status === selectedStatus;
+    return blog?.status === selectedStatus;
   });
   if (isUserLoading || isBlogsLoading) {
     return <Spinner />;
