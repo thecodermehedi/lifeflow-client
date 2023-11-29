@@ -1,21 +1,30 @@
 import toast from "react-hot-toast";
 import {
   deleteRequest,
+  getAllRequests,
   getRequests,
   updateRequest,
   updateRequestStatus,
 } from "../api/requests";
 import useAuth from "./useAuth";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import useUser from "./useUser";
 
 const useRequest = () => {
   const {user, isUserLoading} = useAuth();
+  const {currentUser} = useUser();
   const queryClient = useQueryClient();
   const userMail = user?.email;
   const {data: requests = [], isLoading: isRequestsLoading} = useQuery({
     enabled: !isUserLoading && !!userMail,
     queryKey: ["requests", userMail],
     queryFn: async () => await getRequests(userMail),
+  });
+
+  const {data: allrequests = [], isLoading: isAllRequestsLoading} = useQuery({
+    enabled: !isUserLoading && !!userMail && currentUser?.role === "admin",
+    queryKey: ["requests"],
+    queryFn: async () => await getAllRequests(),
   });
 
   const createMutation = (mutationFn, successMessage, errorMessage) => ({
@@ -74,14 +83,29 @@ const useRequest = () => {
     },
   });
 
+  const {mutateAsync: updateRequestDonorFn} = useMutation({
+    mutationFn: async ({id, donorInfo}) => await updateRequest(id, donorInfo),
+    onSuccess: (id) => {
+      queryClient.invalidateQueries("requests", id);
+      toast.success("Request is updated");
+    },
+    onError: (error) => {
+      console.error("Error updating request:", error);
+      toast.error("Something went wrong");
+    },
+  });
+
   return {
     requests,
+    allrequests,
     isRequestsLoading,
+    isAllRequestsLoading,
     UpdateStatusDone,
     UpdateStatusCanceled,
     DeleteRequestFn,
     UpdateRequestFn,
     UpdateStatusInProgress,
+    updateRequestDonorFn,
   };
 };
 
