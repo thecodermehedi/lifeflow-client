@@ -27,7 +27,6 @@ const MyRequest = () => {
     }
     return request.status === selectedStatus;
   });
-  console.log(requests);
   if (isUserLoading || isRequestsLoading) {
     return <Spinner />;
   }
@@ -130,10 +129,10 @@ const MyRequest = () => {
                       {item.status === "inprogress" ? (
                         <div>
                           <span className="block text-gray-700 text-sm font-medium">
-                            {item.name}
+                            {item.donorName}
                           </span>
                           <span className="block text-gray-700 text-xs">
-                            {item.email}
+                            {item.donorMail}
                           </span>
                         </div>
                       ) : (
