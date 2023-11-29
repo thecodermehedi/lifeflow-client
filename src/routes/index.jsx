@@ -19,8 +19,6 @@ import AddBlog from "../pages/Dashboard/Admin/AddBlog/AddBlog";
 import UpdateRequest from "../pages/Dashboard/UpdateRequest/UpdateRequest";
 import DonationDetails from "../pages/Dashboard/Common/DonationDetails/DonationDetails";
 import BlockRoute from "./BlockRoute";
-import AdminRoute from "./AdminRoute";
-import VolunteerRoute from "./VolunteerRoute";
 import PrivateRoute from "./PrivateRoute";
 import Spinner from "../components/Spinner";
 
