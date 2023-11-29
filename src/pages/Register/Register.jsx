@@ -63,11 +63,9 @@ const Register = () => {
     try {
       // Upload profile picture
       const photoData = await uploadPhoto(photo);
-      // console.log("Uploaded photo data: ", photoData);
 
       // Create user
       const result = await createUser(email, password);
-      // console.log("User creation result: ", result);
 
       // Update user profile
       await updateUserProfile(name, photoData?.data?.display_url);
@@ -83,8 +81,8 @@ const Register = () => {
         role: "donor",
         status: "active",
       };
-      const dbResponse = await saveUserToDB(newUser);
-      console.log("Database save response: ", dbResponse);
+      
+      await saveUserToDB(newUser);
 
       // Reset form
       reset();
