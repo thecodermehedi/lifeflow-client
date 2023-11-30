@@ -4,19 +4,19 @@ import {Link} from "react-router-dom";
 const Footer = () => {
   const footerNavs = [
     {
-      label: "Company",
+      label: "About Us",
       items: [
         {
           href: "#",
-          name: "Partners",
-        },
-        {
-          href: "#",
-          name: "Blog",
+          name: "Our Mission",
         },
         {
           href: "#",
           name: "Team",
+        },
+        {
+          href: "#",
+          name: "Partners",
         },
         {
           href: "#",
@@ -29,7 +29,11 @@ const Footer = () => {
       items: [
         {
           href: "#",
-          name: "contact",
+          name: "Donation Process",
+        },
+        {
+          href: "#",
+          name: "FAQs",
         },
         {
           href: "#",
@@ -37,37 +41,32 @@ const Footer = () => {
         },
         {
           href: "#",
-          name: "Docs",
-        },
-        {
-          href: "#",
-          name: "Pricing",
+          name: "Contact",
         },
       ],
     },
     {
-      label: "About",
+      label: "Legal",
       items: [
         {
           href: "#",
-          name: "Terms",
+          name: "Terms of Service",
         },
         {
           href: "#",
-          name: "License",
+          name: "Privacy Policy",
         },
         {
           href: "#",
-          name: "Privacy",
+          name: "Donor Rights",
         },
         {
           href: "#",
-          name: "About US",
+          name: "Compliance",
         },
       ],
-    },
+    }
   ];
-
   return (
     <section>
       <footer className="text-gray-500  bg-white px-4 py-5 border-t md:pt-10 max-w-screen-xl mx-auto md:px-8">
