@@ -4,8 +4,11 @@ import Spinner from "../../../../components/Spinner";
 import Swal from "sweetalert2";
 import {Link} from "react-router-dom";
 import {useState} from "react";
+import useUser from "../../../../hooks/useUser";
 const Request = () => {
   const {isUserLoading} = useAuth();
+  const {currentUser} = useUser();
+  const isVolunteer = currentUser?.role === "volunteer";
   const [currentPage, setCurrentPage] = useState(0);
   const {
     allrequests,
@@ -95,7 +98,7 @@ const Request = () => {
                 <th className="py-3 px-6">Date</th>
                 <th className="py-3 px-6">Status</th>
                 <th className="py-3 px-6">Donor</th>
-                <th className="py-3 px-6"></th>
+                {!isVolunteer && <th className="py-3 px-6"></th>}
                 <th className="py-3 px-6"></th>
               </tr>
             </thead>
@@ -114,8 +117,12 @@ const Request = () => {
                         </span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">{request?.time}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{request?.date}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {request?.time}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {request?.date}
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span
                         className={`px-3 py-2 rounded-full font-semibold text-xs capitalize ${
@@ -142,26 +149,28 @@ const Request = () => {
                       )}
                     </td>
 
-                    <td className="text-right px-6 whitespace-nowrap">
-                      <Link
-                        to={`/dashboard/request/${request?._id}/details`}
-                        className="py-2 px-3 font-medium text-green-600 hover:text-black bg-green-100 duration-150 hover:bg-green-100 border border-transparent hover:border-black rounded-lg mr-2"
-                      >
-                        View
-                      </Link>
-                      <Link
-                        to={`/dashboard/request/${request?._id}/edit`}
-                        className="py-2 px-3 font-medium text-indigo-600 hover:text-black bg-indigo-100 duration-150 hover:bg-indigo-100 border border-transparent hover:border-black rounded-lg mr-2"
-                      >
-                        Edit
-                      </Link>
-                      <button
-                        onClick={() => ConfirmDelete(request?._id)}
-                        className="py-2 px-3 font-medium text-rose-600 hover:text-black bg-rose-100 duration-150 hover:bg-rose-100 border border-transparent hover:border-black rounded-lg"
-                      >
-                        Delete
-                      </button>
-                    </td>
+                    {!isVolunteer && (
+                      <td className="text-right px-6 whitespace-nowrap">
+                        <Link
+                          to={`/dashboard/request/${request?._id}/details`}
+                          className="py-2 px-3 font-medium text-green-600 hover:text-black bg-green-100 duration-150 hover:bg-green-100 border border-transparent hover:border-black rounded-lg mr-2"
+                        >
+                          View
+                        </Link>
+                        <Link
+                          to={`/dashboard/request/${request?._id}/edit`}
+                          className="py-2 px-3 font-medium text-indigo-600 hover:text-black bg-indigo-100 duration-150 hover:bg-indigo-100 border border-transparent hover:border-black rounded-lg mr-2"
+                        >
+                          Edit
+                        </Link>
+                        <button
+                          onClick={() => ConfirmDelete(request?._id)}
+                          className="py-2 px-3 font-medium text-rose-600 hover:text-black bg-rose-100 duration-150 hover:bg-rose-100 border border-transparent hover:border-black rounded-lg"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    )}
                     {request?.status === "inprogress" && (
                       <td className="text-right px-6 whitespace-nowrap">
                         <button
