@@ -13,6 +13,8 @@ const Users = () => {
     updateUserRoleFn,
   } = useUser();
 
+  console.log(users);
+
   const [selectedStatus, setSelectedStatus] = useState("");
 
   const handleStatusChange = (event) => {
@@ -135,7 +137,8 @@ const Users = () => {
                       )}
                     </td>
                     <td className="text-right px-6 whitespace-nowrap">
-                    {(user?.role === "donor" || user?.role === "volunteer") && (
+                      {(user?.role === "donor" ||
+                        user?.role === "volunteer") && (
                         <button
                           className="px-3 py-2 rounded-lg bg-blue-200 text-blue-800 font-semibold  hover:bg-blue-600  hover:text-black"
                           onClick={() =>
