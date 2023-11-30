@@ -20,3 +20,4 @@ export const uploadPhoto = async (photo) => {
   );
   return data;
 };
+
