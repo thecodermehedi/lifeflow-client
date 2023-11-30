@@ -15,6 +15,8 @@ const useRequest = () => {
   const {currentUser} = useUser();
   const queryClient = useQueryClient();
   const userMail = user?.email;
+  const isAuthorized =
+    currentUser?.role === "volunteer" || currentUser?.role === "admin";
   const {data: requests = [], isLoading: isRequestsLoading} = useQuery({
     enabled: !isUserLoading && !!userMail,
     queryKey: ["requests", userMail],
@@ -22,7 +24,7 @@ const useRequest = () => {
   });
 
   const {data: allrequests = [], isLoading: isAllRequestsLoading} = useQuery({
-    enabled: !isUserLoading && !!userMail && currentUser?.role === "admin",
+    enabled: !isUserLoading && !!userMail && !!isAuthorized,
     queryKey: ["requests"],
     queryFn: async () => await getAllRequests(),
   });
