@@ -9,45 +9,50 @@ import {useState} from "react";
 import {useEffect} from "react";
 import Spinner from "../../components/Spinner";
 import {getDonors} from "../../api/users";
+import {usePDF} from "react-to-pdf";
 const Search = () => {
-  const {handleSubmit, setValue, control} = useForm();
-
-  const {data: donors = [], isLoading: isDonorsLoading} = useQuery({
+  const {handleSubmit, reset, control} = useForm();
+  const {toPDF, targetRef} = usePDF({filename: "page.pdf"});
+  const {data: donors, isLoading: isDonorsLoading} = useQuery({
     queryKey: ["donors"],
     queryFn: async () => await getDonors(),
   });
 
-  const [tableDonors, setTableDonors] = useState([]);
+  const [tableDonors, setTableDonors] = useState();
+
   useEffect(() => {
-    if (donors?.length > 0) {
+    if (!isDonorsLoading && donors?.length > 0) {
       setTableDonors(donors);
     }
-  }, [donors]);
+  }, [isDonorsLoading, donors]);
 
   const handleSearch = (data) => {
-    if (data.bloodGroup && data.district && data.upazila) {
-      alert("At least one field is required to search");
-      return;
-    }
-
     const filteredDonors = donors?.filter((donor) => {
       return (
-        (data.bloodGroup === "" ||
-          donor.bloodGroup.includes(data.bloodGroup)) &&
-        (data.district === "" || donor.district.includes(data.district)) &&
-        (data.upazila === "" || donor.upazila.includes(data.upazila))
+        (data?.bloodGroup === "" ||
+          donor?.bloodGroup
+            .toLowerCase()
+            .includes(data?.bloodGroup?.toLowerCase())) &&
+        (data?.district === "" ||
+          donor?.district
+            .toLowerCase()
+            .includes(data?.district?.toLowerCase())) &&
+        (data?.upazila === "" ||
+          donor?.upazila.toLowerCase().includes(data?.upazila?.toLowerCase()))
       );
     });
 
     setTableDonors(filteredDonors);
   };
-
   const handleReset = () => {
-    setValue("bloodGroup", "");
-    setValue("district", "");
-    setValue("upazila", "");
+    reset();
     setTableDonors(donors);
   };
+
+  if (isDonorsLoading) {
+    return <Spinner />;
+  }
+
   return (
     <section>
       <SectionTitle
@@ -58,11 +63,11 @@ const Search = () => {
         <div className="w-full border rounded-lg p-5 md:p-8">
           <form onSubmit={handleSubmit(handleSearch)} className="mx-auto mt-12">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
-              <SelectBloodGroup control={control} />
-              <SelectDistrict control={control} />
-              <SelectUpazila control={control} />
+              <SelectBloodGroup control={control} defaultValue={""} />
+              <SelectDistrict control={control} defaultValue={""} />
+              <SelectUpazila control={control} defaultValue={""} />
             </div>
-            <div className="w-full flex justify-center donors-center gap-4 mt-12">
+            <div className="w-full flex flex-col md:flex-row justify-center donors-center gap-4 mt-12">
               <button
                 type="button"
                 onClick={handleReset}
@@ -73,20 +78,29 @@ const Search = () => {
               <button type="submit" className="btn px-8 py-3">
                 <span>Search</span>
               </button>
+
+              <button
+                onClick={() => toPDF()}
+                className="bg-blue-600 hover:bg-blue-800 text-white
+                 py-2 px-4 rounded-lg sm:px-6 md:px-8"
+              >
+                Download Result
+              </button>
             </div>
           </form>
         </div>
       </Container>
 
-      {isDonorsLoading ? (
-        <Spinner />
-      ) : tableDonors.length === 0 ? (
+      {tableDonors?.length === 0 ? (
         <div className="flex justify-center items-center h-64">
           <h2 className="text-lg font-semibold">No donors found</h2>
         </div>
       ) : (
         <Container>
-          <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto my-5 md:my-8 lg:my-10 w-full">
+          <div
+            className="mt-12 shadow-sm border rounded-lg overflow-x-auto my-5 md:my-8 lg:my-10 w-full"
+            ref={targetRef}
+          >
             <table className="w-full table-auto text-sm text-left">
               <thead className="bg-red-50 text-primary font-medium border-b">
                 <tr>
