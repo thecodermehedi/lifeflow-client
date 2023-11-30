@@ -24,6 +24,7 @@ import Spinner from "../components/Spinner";
 import AdminOrVolunteerRoute from "./AdminOrVolunteerRoute";
 import AuthorizedHome from "../pages/Dashboard/AuthorizedHome";
 import AdminRoute from "./AdminRoute";
+import EditBlog from "../pages/Dashboard/Admin/EditBlog/EditBlog";
 
 const router = createBrowserRouter([
   {
@@ -139,11 +140,11 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "all-blood-donation-request",
+        path: ":role/all-blood-donation-request",
         element: (
-          <PrivateRoute>
+          <AdminOrVolunteerRoute>
             <Requests />
-          </PrivateRoute>
+          </AdminOrVolunteerRoute>
         ),
       },
       {
@@ -157,9 +158,17 @@ const router = createBrowserRouter([
       {
         path: ":role/content-management/add-blog",
         element: (
-          <PrivateRoute>
+          <AdminOrVolunteerRoute>
             <AddBlog />
-          </PrivateRoute>
+          </AdminOrVolunteerRoute>
+        ),
+      },
+      {
+        path: ":role/content-management/:id/edit",
+        element: (
+          <AdminOrVolunteerRoute>
+            <EditBlog/>
+          </AdminOrVolunteerRoute>
         ),
       },
       // Volunteer
