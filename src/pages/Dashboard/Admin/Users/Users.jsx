@@ -13,7 +13,6 @@ const Users = () => {
     updateUserRoleFn,
   } = useUser();
 
-  console.log(users);
 
   const [selectedStatus, setSelectedStatus] = useState("");
 

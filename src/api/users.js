@@ -22,7 +22,6 @@ export const getDonors = async () => {
 // Get users
 export const getUsers = async () => {
   const {data} = await axiosSecure(`/users`);
-  console.log(data);
   return data;
 };
 
@@ -40,7 +39,6 @@ export const updateUserStatus = async (id, status) => {
 
 // Update user role
 export const updateUserRoleToDB = async (id, role) => {
-  console.log(id, role);
   const {data} = await axiosSecure.patch(`/user/role/${id}`, {role});
   return data;
 };
