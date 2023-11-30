@@ -12,12 +12,9 @@ const Content = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedStatus, setSelectedStatus] = useState("");
   const {currentUser} = useUser();
-  const {
-    blogs,
-    isBlogsLoading,
-    // UpdateBlogStatus,
-    // deleteBlogFn,
-  } = useBlog();
+  const isVolunteer = currentUser?.role === "volunteer";
+  const {blogs, isBlogsLoading, deleteBlogFn, PublishBlog, UnpublishBlog} =
+    useBlog();
   const handleStatusChange = (event) => {
     setSelectedStatus(event.target.value);
   };
@@ -96,9 +93,9 @@ const Content = () => {
               <tr>
                 <th className="py-3 px-6">Thumbnail</th>
                 <th className="py-3 px-6">Title</th>
-                <th className="py-3 px-6">Status</th>
-                <th className="py-3 px-6">Publish</th>
-                <th className="py-3 px-6">Actions</th>
+                <th className="py-3 px-6 text-center">Status</th>
+                {!isVolunteer && <th className="py-3 px-6">Publish</th>}
+                <th className="py-3 px-6 text-center">Actions</th>
               </tr>
             </thead>
             <tbody className="text-gray-600 divide-y">
@@ -107,12 +104,15 @@ const Content = () => {
                 .map((blog, idx) => (
                   <tr key={idx}>
                     <td className="flex items-center gap-x-3 py-3 px-6 whitespace-nowrap">
-                      <img src={blog?.image} className="w-12 h-12 rounded-lg" />
+                      <img
+                        src={blog?.cover}
+                        className="h-16 w-20 object-cover rounded-lg"
+                      />
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {blog?.title}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap text-center">
                       <span
                         className={`px-3 py-2 rounded-full font-semibold text-xs capitalize ${
                           statusColors[blog?.status]
@@ -121,37 +121,41 @@ const Content = () => {
                         {blog?.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {blog?.status === "draft" ? (
-                        <button
-                          // onClick={() => UpdateBlogStatus(blog?._id)}
-                          className="bg-red-200 text-primary font-semibold hover:bg-red-600 hover:text-foreground transition duration-150 px-3 py-2 rounded-lg capitalize"
-                        >
-                          Unpublish
-                        </button>
-                      ) : (
-                        <button
-                          // onClick={() => UpdateBlogStatus(blog?._id)}
-                          className="bg-green-200 text-green-800 font-semibold hover:bg-green-600 hover:text-foreground transition duration-150 px-3 py-2 rounded-lg capitalize"
-                        >
-                          Publish
-                        </button>
-                      )}
-                    </td>
+                    {!isVolunteer && (
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {blog?.status === "published" ? (
+                          <button
+                            onClick={() => UnpublishBlog(blog?._id)}
+                            className="bg-red-200 text-primary font-semibold hover:bg-red-600 hover:text-foreground transition duration-150 px-3 py-2 rounded-lg capitalize"
+                          >
+                            Unpublish
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => PublishBlog(blog?._id)}
+                            className="bg-green-200 text-green-800 font-semibold hover:bg-green-600 hover:text-foreground transition duration-150 px-3 py-2 rounded-lg capitalize"
+                          >
+                            Publish
+                          </button>
+                        )}
+                      </td>
+                    )}
 
-                    <td className="text-right px-6 whitespace-nowrap">
+                    <td className="text-center px-6 whitespace-nowrap">
                       <Link
                         to={`/dashboard/${currentUser?.role}/content-management/${blog?._id}/edit`}
-                        className="px-3 py-2 rounded-lg bg-blue-200 text-blue-800 font-semibold  hover:bg-blue-600  hover:text-black"
+                        className="px-3 py-2 rounded-lg bg-blue-200 text-blue-800 font-semibold  hover:bg-blue-600  hover:text-black mr-2"
                       >
                         Edit
                       </Link>
-                      <button
-                        className="px-3 py-2 rounded-lg bg-orange-200 text-orange-800 font-semibold  hover:bg-orange-600  hover:text-black"
-                        // onClick={() => deleteBlogFn(blog?._id)}
-                      >
-                        Delete
-                      </button>
+                      {!isVolunteer && (
+                        <button
+                          className="px-3 py-2 rounded-lg bg-red-200 text-red-800 font-semibold  hover:bg-red-600  hover:text-black"
+                          onClick={() => deleteBlogFn(blog?._id)}
+                        >
+                          Delete
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}
