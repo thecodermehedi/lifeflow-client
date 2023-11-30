@@ -1,4 +1,5 @@
 import axiosSecure from ".";
+import axiosPublic from "./axiosPublic";
 
 export const saveRequest = async (request) => {
   const {data} = await axiosSecure.post("/requests", request);
@@ -6,10 +7,11 @@ export const saveRequest = async (request) => {
 };
 
 export const getRequests = async (email) => {
+  console.log(email);
   const {data} = await axiosSecure(`/requests/${email}`);
+  console.log(data);
   return data;
 };
-
 
 export const getAllRequests = async () => {
   const {data} = await axiosSecure(`/requests`);
@@ -17,7 +19,6 @@ export const getAllRequests = async () => {
 };
 
 export const updateRequest = async (id, newRequestInfo) => {
-
   const {data} = await axiosSecure.patch(`/request/${id}`, newRequestInfo);
   return data;
 };
@@ -34,5 +35,10 @@ export const updateRequestStatus = async (id, status) => {
 
 export const getTotalRequests = async () => {
   const {data} = await axiosSecure(`/requests/total`);
+  return data;
+};
+
+export const getRequestsByStatus = async () => {
+  const {data} = await axiosPublic(`/request/pending`);
   return data;
 };
