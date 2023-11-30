@@ -1,17 +1,15 @@
 const Testimonial = () => {
   return (
-    <section className="relative py-28 bg-primary/80">
+    <section className="relative py-28 bg-red-500">
       <div className="relative z-10 max-w-screen-xl mx-auto px-4 md:px-8">
         <div className="max-w-3xl mx-auto text-center">
-          <h3 className="text-blue-100 font-semibold pb-6">
-            What people are saying
+          <h3 className="text-white font-semibold pb-6">
+            Donors&#39; Experiences
           </h3>
           <figure>
             <blockquote>
-              <p className="text-balck text-xl font-semibold sm:text-2xl">
-                “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                et est hendrerit, porta nunc vitae, gravida justo. Nunc
-                fermentum magna lorem, euismod volutpat arcu volutpat et.“
+              <p className="text-white text-xl font-semibold sm:text-2xl">
+                “Donating blood was a life-changing experience for me. It&#39;s a simple act, but it can make a huge difference in someone&#39;s life.“
               </p>
             </blockquote>
             <div className="mt-6">
@@ -21,10 +19,10 @@ const Testimonial = () => {
               />
               <div className="mt-3">
                 <span className="block text-white font-semibold">
-                  Martin escobar
+                  John Doe
                 </span>
-                <span className="block text-blue-100 text-sm mt-0.5">
-                  Founder of meta
+                <span className="block text-white text-sm mt-0.5">
+                  Regular Donor
                 </span>
               </div>
             </div>

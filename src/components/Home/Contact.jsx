@@ -17,7 +17,7 @@ const Contact = () => {
           />
         </svg>
       ),
-      contact: "Support@example.com",
+      contact: "support@lifeflow.com",
     },
     {
       icon: (
@@ -36,7 +36,7 @@ const Contact = () => {
           />
         </svg>
       ),
-      contact: "+1 (555) 000-000",
+      contact: "+(880) 1717171717",
     },
     {
       icon: (
@@ -60,7 +60,7 @@ const Contact = () => {
           />
         </svg>
       ),
-      contact: "Mountain View, California, United State.",
+      contact: "Madaripur, Dhaka, Bangladesh.",
     },
   ];
 
@@ -71,12 +71,10 @@ const Contact = () => {
           <div className="max-w-lg space-y-3">
             <h3 className="text-primary font-semibold">Contact</h3>
             <p className="text-gray-800 text-3xl font-semibold sm:text-4xl">
-              Let us know how we can help
+              We&#39;re here to assist you
             </p>
             <p>
-              We’re here to help and answer any question you might have, We look
-              forward to hearing from you! Please fill out the form, or us the
-              contact information bellow .
+              Whether you have a question about donating, hosting a blood drive, or anything else, our team is ready to answer all your questions. Please fill out the form, or use the contact information below.
             </p>
             <div>
               <ul className="mt-6 flex flex-wrap gap-x-10 gap-y-6 items-center">
@@ -108,7 +106,7 @@ const Contact = () => {
                 />
               </div>
               <div>
-                <label className="font-medium">Company</label>
+                <label className="font-medium">Subject</label>
                 <input
                   type="text"
                   required
