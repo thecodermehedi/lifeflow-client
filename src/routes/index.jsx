@@ -181,9 +181,6 @@ const router = createBrowserRouter([
           </AdminOrVolunteerRoute>
         ),
       },
-      // Volunteer
-      // {path: "my-donation-requests", element: <Dashboard />},
-      // {path: "content-management", element: <Dashboard />},
     ],
   },
 ]);

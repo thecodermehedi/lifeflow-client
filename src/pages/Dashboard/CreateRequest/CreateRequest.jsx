@@ -9,6 +9,8 @@ import toast from "react-hot-toast";
 import dayjs from "dayjs";
 import {saveRequest} from "../../../api/requests";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
+import useUser from "../../../hooks/useUser";
+import {Lock} from "react-feather";
 const CreateRequest = () => {
   const queryClient = useQueryClient();
 
@@ -17,6 +19,9 @@ const CreateRequest = () => {
 
   // Current user
   const {user} = useAuth();
+  const {currentUser} = useUser();
+
+  const isBlocked = currentUser?.status === "blocked";
 
   // Add new request
   const {mutateAsync} = useMutation({
@@ -62,6 +67,28 @@ const CreateRequest = () => {
       toast.error(error.message, {id: toastLoading});
     }
   };
+
+  if (isBlocked) {
+    return (
+      <div className="rounded-lg bg-white lg:col-span-3 w-full">
+        <h1 className="text-xl md:text-2xl font-semibold text-gray-900 text-center">
+          Create Blood Donation Request
+        </h1>
+        <div className="flex items-center justify-center pt-20">
+          <div className="flex flex-col items-center justify-center p-8 space-y-4">
+            <Lock className="w-16 h-16 text-primary" />
+            <h1 className="text-xl font-semibold text-primary text-center">
+              You are blocked by admin
+            </h1>
+            <p className="text-gray-500">
+              You can&#39;t create blood donation request
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-lg bg-white lg:col-span-3 w-full">
       <h1 className="text-xl md:text-2xl font-semibold text-gray-900 text-center">
