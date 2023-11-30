@@ -4,7 +4,7 @@ import useDashboard from "../../hooks/useDashboard";
 
 const AuthorizedHome = () => {
   const {user} = useAuth();
-  const {totalUsers, totalRequests} = useDashboard();
+  const {totalUsers, totalRequests, totalFunds} = useDashboard();
   return (
     <section>
       <h1 className="text-xl md:text-3xl pb-5">
@@ -48,7 +48,9 @@ const AuthorizedHome = () => {
               <p className="text-sm text-gray-900 md:text-xl font-medium">
                 Total Funds
               </p>
-              <p className="text-2xl font-semibold text-gray-900">$28,346</p>
+              <p className="text-2xl font-semibold text-gray-900">
+                ${totalFunds?.total}
+              </p>
             </div>
           </div>
         </article>
