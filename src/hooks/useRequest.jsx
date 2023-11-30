@@ -3,6 +3,7 @@ import {
   deleteRequest,
   getAllRequests,
   getRequests,
+  getRequestsByStatus,
   updateRequest,
   updateRequestStatus,
 } from "../api/requests";
@@ -15,19 +16,32 @@ const useRequest = () => {
   const {currentUser} = useUser();
   const queryClient = useQueryClient();
   const userMail = user?.email;
+  console.log(userMail, isUserLoading);
   const isAuthorized =
     currentUser?.role === "volunteer" || currentUser?.role === "admin";
+
+    
   const {data: requests = [], isLoading: isRequestsLoading} = useQuery({
     enabled: !isUserLoading && !!userMail,
     queryKey: ["requests", userMail],
     queryFn: async () => await getRequests(userMail),
   });
 
+
+
   const {data: allrequests = [], isLoading: isAllRequestsLoading} = useQuery({
     enabled: !isUserLoading && !!userMail && !!isAuthorized,
     queryKey: ["requests"],
     queryFn: async () => await getAllRequests(),
   });
+
+
+
+const {data: allPendingPequests = [], isLoading: isAllPendingRequestsLoading} = useQuery({
+    queryKey: ["requests-pending"],
+    queryFn: async () => await getRequestsByStatus(),
+  });
+
 
   const createMutation = (mutationFn, successMessage, errorMessage) => ({
     mutationFn,
@@ -100,6 +114,8 @@ const useRequest = () => {
   return {
     requests,
     allrequests,
+    allPendingPequests,
+    isAllPendingRequestsLoading,
     isRequestsLoading,
     isAllRequestsLoading,
     UpdateStatusDone,
