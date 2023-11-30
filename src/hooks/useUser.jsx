@@ -1,6 +1,11 @@
 import useAuth from "./useAuth";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {getUser, getUsers, updateUserRoleToDB, updateUserStatus} from "../api/users";
+import {
+  getUser,
+  getUsers,
+  updateUserRoleToDB,
+  updateUserStatus,
+} from "../api/users";
 import toast from "react-hot-toast";
 
 const useUser = () => {
@@ -13,8 +18,10 @@ const useUser = () => {
     queryFn: async () => await getUser(userMail),
   });
 
+  const isAdmin = currentUser?.role === "admin";
+
   const {data: users = [], isLoading: isUsersLoading} = useQuery({
-    enabled: !isUserLoading && !!userMail && !!currentUser?.role === "admin",
+    enabled: !isUserLoading && !!userMail && !!isAdmin,
     queryKey: ["users"],
     queryFn: async () => await getUsers(),
   });
@@ -61,7 +68,7 @@ const useUser = () => {
     isUsersLoading,
     UpdateStatusBlocked,
     UpdateStatusActive,
-    updateUserRoleFn
+    updateUserRoleFn,
   };
 };
 
