@@ -25,6 +25,7 @@ import AdminOrVolunteerRoute from "./AdminOrVolunteerRoute";
 import AuthorizedHome from "../pages/Dashboard/AuthorizedHome";
 import AdminRoute from "./AdminRoute";
 import EditBlog from "../pages/Dashboard/Admin/EditBlog/EditBlog";
+import Fundings from "../pages/Fundings/Fundings";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,14 @@ const router = createBrowserRouter([
       {path: "/blog", element: <Blog />},
       {path: "/donation-request", element: <DonationRequest />},
       {path: "/request/:id/details", element: <DonationDetails />},
+      {
+        path: "/fundings",
+        element: (
+          <PrivateRoute>
+            <Fundings />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
