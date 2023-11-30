@@ -1,7 +1,7 @@
 const Testimonial = () => {
   return (
-    <section className="relative py-28 bg-red-500">
-      <div className="relative z-10 max-w-screen-xl mx-auto px-4 md:px-8">
+    <section className="relative py-28 bg-red-500" data-aos="fade-up" data-aos-duration="1000">
+      <div className="relative z-10 max-w-screen-xl mx-auto px-4 md:px-8" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
         <div className="max-w-3xl mx-auto text-center">
           <h3 className="text-white font-semibold pb-6">
             Donors&#39; Experiences

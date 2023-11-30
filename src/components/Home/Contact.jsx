@@ -65,16 +65,28 @@ const Contact = () => {
   ];
 
   return (
-    <main className="py-14">
-      <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
-        <div className="max-w-lg mx-auto gap-12 justify-between lg:flex lg:max-w-none">
+    <main className="py-14" data-aos="fade-up" data-aos-duration="1000">
+      <div
+        className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8"
+        data-aos="fade-up"
+        data-aos-delay="200"
+        data-aos-duration="1000"
+      >
+        <div
+          className="max-w-lg mx-auto gap-12 justify-between lg:flex lg:max-w-none"
+          data-aos="fade-left"
+          data-aos-delay="400"
+          data-aos-duration="1000"
+        >
           <div className="max-w-lg space-y-3">
             <h3 className="text-primary font-semibold">Contact</h3>
             <p className="text-gray-800 text-3xl font-semibold sm:text-4xl">
               We&#39;re here to assist you
             </p>
             <p>
-              Whether you have a question about donating, hosting a blood drive, or anything else, our team is ready to answer all your questions. Please fill out the form, or use the contact information below.
+              Whether you have a question about donating, hosting a blood drive,
+              or anything else, our team is ready to answer all your questions.
+              Please fill out the form, or use the contact information below.
             </p>
             <div>
               <ul className="mt-6 flex flex-wrap gap-x-10 gap-y-6 items-center">
@@ -87,7 +99,12 @@ const Contact = () => {
               </ul>
             </div>
           </div>
-          <div className="flex-1 mt-12 sm:max-w-lg lg:max-w-md">
+          <div
+            className="flex-1 mt-12 sm:max-w-lg lg:max-w-md"
+            data-aos="fade-right"
+            data-aos-delay="600"
+            data-aos-duration="1000"
+          >
             <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
               <div>
                 <label className="font-medium">Full name</label>

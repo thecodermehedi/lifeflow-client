@@ -19,8 +19,8 @@ const Stats = () => {
   ];
 
   return (
-    <section className="py-14 bg-red-500 text-white">
-      <div className="max-w-screen-xl mx-auto px-4  md:px-8">
+    <section className="py-14 bg-red-500 text-white" data-aos="fade-up" data-aos-duration="1000">
+      <div className="max-w-screen-xl mx-auto px-4  md:px-8" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
         <div className="max-w-2xl mx-auto text-center">
           <h3 className="text-3xl font-semibold sm:text-4xl">
             Making a Difference, One Donation at a Time
@@ -29,7 +29,7 @@ const Stats = () => {
             Our dedicated donors and partners are helping us save lives every day.
           </p>
         </div>
-        <div className="mt-12">
+        <div className="mt-12" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">
           <ul className="flex flex-col items-center justify-center gap-y-10 sm:flex-row sm:flex-wrap lg:divide-x">
             {stats.map((item, idx) => (
               <li key={idx} className="text-center px-12 md:px-16">

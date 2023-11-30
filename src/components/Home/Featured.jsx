@@ -5,7 +5,11 @@ const Featured = () => {
     <section className="my-20">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-2">
-          <div className="overflow-hidden rounded-lg border text-center border-gray-100 bg-white shadow-sm">
+          <div
+            className="overflow-hidden rounded-lg border text-center border-gray-100 bg-white shadow-sm"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+          >
             <img
               alt="Office"
               src="http://innovativeartisan.com/demo/html/blad-ai/assets/images/r1.jpg"
@@ -24,7 +28,12 @@ const Featured = () => {
               </p>
             </div>
           </div>
-          <div className="overflow-hidden rounded-lg border text-center border-gray-100 bg-white shadow-sm">
+          <div
+            className="overflow-hidden rounded-lg border text-center border-gray-100 bg-white shadow-sm"
+            data-aos="fade-up"
+            data-aos-delay="200"
+            data-aos-duration="1000"
+          >
             <img
               alt="Office"
               src="http://innovativeartisan.com/demo/html/blad-ai/assets/images/r2.jpg"
@@ -32,19 +41,24 @@ const Featured = () => {
             />
 
             <div className="p-4 sm:p-6">
-            <h3 className="text-lg md:text-xl font-bold text-primary">
+              <h3 className="text-lg md:text-xl font-bold text-primary">
                 Why Give Blood?
               </h3>
 
               <p className="mt-2 text-sm/relaxed text-gray-700">
                 Giving blood is a simple act, but it can have a profound impact.
-                It&#39;s a way to directly help others, and it&#39;s a vital part of
-                healthcare that ensures hospitals have the supplies they need to
-                treat patients.
+                It&#39;s a way to directly help others, and it&#39;s a vital
+                part of healthcare that ensures hospitals have the supplies they
+                need to treat patients.
               </p>
             </div>
           </div>
-          <div className="overflow-hidden rounded-lg border text-center border-gray-100 bg-white shadow-sm">
+          <div
+            className="overflow-hidden rounded-lg border text-center border-gray-100 bg-white shadow-sm"
+            data-aos="fade-up"
+            data-aos-delay="400"
+            data-aos-duration="1000"
+          >
             <img
               alt="Office"
               src="http://innovativeartisan.com/demo/html/blad-ai/assets/images/r3.jpg"
@@ -52,7 +66,7 @@ const Featured = () => {
             />
 
             <div className="p-4 sm:p-6">
-            <h3 className="text-lg md:text-xl font-bold text-primary">
+              <h3 className="text-lg md:text-xl font-bold text-primary">
                 How Donations Helps
               </h3>
 

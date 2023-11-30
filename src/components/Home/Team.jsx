@@ -51,18 +51,28 @@ const Team = () => {
   ];
 
   return (
-    <section className="py-14">
-      <div className="max-w-screen-xl mx-auto px-4 text-center md:px-8">
+    <section className="py-14" data-aos="fade-up" data-aos-duration="1000">
+      <div
+        className="max-w-screen-xl mx-auto px-4 text-center md:px-8"
+        data-aos="fade-up"
+        data-aos-delay="200"
+        data-aos-duration="1000"
+      >
         <div className="max-w-xl mx-auto">
           <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl">
             Meet our team
           </h3>
           <p className="text-gray-600 mt-3">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.Lorem Ipsum has been the industry&#39;s standard dummy.
+            Our dedicated team works tirelessly to connect donors with those in
+            need. We&#39;re committed to making a life-saving impact.
           </p>
         </div>
-        <div className="mt-12">
+        <div
+          className="mt-12"
+          data-aos="fade-up"
+          data-aos-delay="400"
+          data-aos-duration="1000"
+        >
           <ul className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
             {team.map((item, idx) => (
               <li key={idx}>
