@@ -5,16 +5,16 @@ import SelectBloodGroup from "../../components/Shared/SelectField/SelectBloodGro
 import SelectDistrict from "../../components/Shared/SelectField/SelectDistrict";
 import SelectUpazila from "../../components/Shared/SelectField/SelectUpazila";
 import {useForm} from "react-hook-form";
-import {getUsers} from "../../api/users";
 import {useState} from "react";
 import {useEffect} from "react";
 import Spinner from "../../components/Spinner";
+import { getDonors } from "../../api/users";
 const Search = () => {
   const {register, handleSubmit, reset, control} = useForm();
 
   const {data: donors = [], isLoading: isDonorsLoading} = useQuery({
     queryKey: ["donors"],
-    queryFn: async () => await getUsers("donor"),
+    queryFn: async () => await getDonors(),
   });
 
   const [tableDonors, setTableDonors] = useState([]);
