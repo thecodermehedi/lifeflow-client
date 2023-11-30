@@ -275,7 +275,7 @@ const DashboardLayout = () => {
     },
     {
       name: "Requests",
-      path: "/dashboard/all-blood-donation-request",
+      path: "/dashboard/admin/all-blood-donation-request",
       icon: (
         <svg
           className="w-5 h-5"
@@ -346,7 +346,7 @@ const DashboardLayout = () => {
     },
     {
       name: "Requests",
-      path: "/dashboard/all-blood-donation-request",
+      path: "/dashboard/volunteer/all-blood-donation-request",
       icon: (
         <svg
           className="w-5 h-5"
