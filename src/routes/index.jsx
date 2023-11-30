@@ -36,6 +36,7 @@ const router = createBrowserRouter([
       {path: "/search", element: <Search />},
       {path: "/blog", element: <Blog />},
       {path: "/donation-request", element: <DonationRequest />},
+      {path: "/request/:id/details", element: <DonationDetails />},
     ],
   },
   {
@@ -167,7 +168,7 @@ const router = createBrowserRouter([
         path: ":role/content-management/:id/edit",
         element: (
           <AdminOrVolunteerRoute>
-            <EditBlog/>
+            <EditBlog />
           </AdminOrVolunteerRoute>
         ),
       },
