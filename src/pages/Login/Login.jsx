@@ -5,9 +5,13 @@ import {useForm} from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import {useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 const Login = () => {
   // Navigation
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   // Auth functions
   const {signIn} = useAuth();
@@ -23,7 +27,7 @@ const Login = () => {
     const toastLoading = toast.loading("Please wait...");
     try {
       await signIn(data?.email, data?.password);
-      navigate("/");
+      navigate(from, {replace: true});
       toast.success("Logged in successfully", {id: toastLoading});
     } catch (error) {
       console.log(error);
