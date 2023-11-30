@@ -11,7 +11,7 @@ const AuthorizedHome = () => {
         Welcome{" "}
         <span className="font-bold text-foreground">{user?.displayName}!</span>
       </h1>
-      <div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid  grid-cols-1 lg:grid-cols-3 gap-4">
         <article className="flex items-end justify-between rounded-lg  bg-base p-16">
           <div className="flex items-center gap-4">
             <span className="hidden rounded-full bg-blue-100 p-2 text-gray-600 sm:block">
