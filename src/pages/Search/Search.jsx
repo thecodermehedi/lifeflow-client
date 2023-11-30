@@ -8,9 +8,9 @@ import {useForm} from "react-hook-form";
 import {useState} from "react";
 import {useEffect} from "react";
 import Spinner from "../../components/Spinner";
-import { getDonors } from "../../api/users";
+import {getDonors} from "../../api/users";
 const Search = () => {
-  const {register, handleSubmit, reset, control} = useForm();
+  const {handleSubmit, setValue, control} = useForm();
 
   const {data: donors = [], isLoading: isDonorsLoading} = useQuery({
     queryKey: ["donors"],
@@ -25,9 +25,13 @@ const Search = () => {
   }, [donors]);
 
   const handleSearch = (data) => {
-    const filteredDonors = tableDonors?.filter((donor) => {
+    if (data.bloodGroup && data.district && data.upazila) {
+      alert("At least one field is required to search");
+      return;
+    }
+
+    const filteredDonors = donors?.filter((donor) => {
       return (
-        (data.email === "" || donor.email.includes(data.email)) &&
         (data.bloodGroup === "" ||
           donor.bloodGroup.includes(data.bloodGroup)) &&
         (data.district === "" || donor.district.includes(data.district)) &&
@@ -35,19 +39,15 @@ const Search = () => {
       );
     });
 
-    if (filteredDonors?.length > 0) {
-      setTableDonors(filteredDonors);
-    } else {
-      reset();
-      setTableDonors(donors);
-    }
+    setTableDonors(filteredDonors);
   };
 
   const handleReset = () => {
-    reset();
+    setValue("bloodGroup", "");
+    setValue("district", "");
+    setValue("upazila", "");
     setTableDonors(donors);
   };
-
   return (
     <section>
       <SectionTitle
@@ -57,28 +57,6 @@ const Search = () => {
       <Container>
         <div className="w-full border rounded-lg p-5 md:p-8">
           <form onSubmit={handleSubmit(handleSearch)} className="mx-auto mt-12">
-            <div className="relative flex-1">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="absolute top-0 bottom-0 w-6 h-6 my-auto text-gray-400 left-3"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-              <input
-                type="email"
-                placeholder="Enter donor email address"
-                {...register("email")}
-                className="w-full py-3 pl-12 pr-4 text-gray-500 border rounded-lg outline-none bg-base focus:bg-white focus:border-primary/70"
-              />
-            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
               <SelectBloodGroup control={control} />
               <SelectDistrict control={control} />
@@ -102,6 +80,10 @@ const Search = () => {
 
       {isDonorsLoading ? (
         <Spinner />
+      ) : tableDonors.length === 0 ? (
+        <div className="flex justify-center items-center h-64">
+          <h2 className="text-lg font-semibold">No donors found</h2>
+        </div>
       ) : (
         <Container>
           <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto my-5 md:my-8 lg:my-10 w-full">
