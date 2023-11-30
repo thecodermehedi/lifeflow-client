@@ -7,20 +7,20 @@ import DonateToggle from "../../../DonationRequest/DonateToggle/DonateToggle";
 
 const DonationDetails = () => {
   const {id} = useParams();
-  const {requests, isRequestsLoading} = useRequest();
+  const {allrequests, isAllRequestsLoading} = useRequest();
   const [request, setRequest] = useState();
   useEffect(() => {
-    if (requests?.length > 0) {
-      const req = requests?.find((req) => req?._id === id);
+    if (allrequests?.length > 0) {
+      const req = allrequests?.find((req) => req?._id === id);
       setRequest(req);
     }
-  }, [id, requests]);
+  }, [id, allrequests]);
 
-  if (isRequestsLoading || !request) {
+  if (isAllRequestsLoading) {
     return <Spinner />;
   }
   return (
-    <section className="w-full">
+    <section className="w-fit mx-auto mb-10">
       <div className="text-center font-bold mb-10 text-3xl">
         <h1>Blood Donation Details</h1>
       </div>
