@@ -25,6 +25,10 @@ const ProfileDropDown = (props) => {
           ? `/dashboard/${currentUser?.role}/profile`
           : "/dashboard/profile",
     },
+    {
+      title: "Fundings",
+      path: "/fundings",
+    }
   ];
 
   useEffect(() => {
