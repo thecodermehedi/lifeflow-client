@@ -12,7 +12,7 @@ Connecting Lives, One Donation at a Time
 
 ## Introduction
 
-![](./public//preview.jpg)
+![](./public/preview.jpg)
 
 The LifeFlow Blood Donation Application is a user-friendly platform that facilitates blood donation activities. It connects donors with those in need, streamlining the donation process. Built using the MERN stack (MongoDB, Express.js, React, Node.js), it includes features for user registration, blood donation requests, donor management, content management, and role-based access control.
 
