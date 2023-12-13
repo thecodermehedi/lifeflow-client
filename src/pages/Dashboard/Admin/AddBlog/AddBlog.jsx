@@ -28,7 +28,7 @@ const AddBlog = () => {
       const newBlog = {
         title,
         description: content,
-        cover: photoData?.data?.display_url,
+        cover: photoData?.secure_url,
         status: "draft",
         date,
         time,
