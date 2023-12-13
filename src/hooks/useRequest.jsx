@@ -9,17 +9,11 @@ import {
 } from "../api/requests";
 import useAuth from "./useAuth";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import useUser from "./useUser";
 
 const useRequest = () => {
   const {user, isUserLoading} = useAuth();
-  const {currentUser} = useUser();
   const queryClient = useQueryClient();
   const userMail = user?.email;
-  console.log(userMail, isUserLoading);
-  const isAuthorized =
-    currentUser?.role === "volunteer" || currentUser?.role === "admin";
-
     
   const {data: requests = [], isLoading: isRequestsLoading} = useQuery({
     enabled: !isUserLoading && !!userMail,
@@ -30,7 +24,6 @@ const useRequest = () => {
 
 
   const {data: allrequests = [], isLoading: isAllRequestsLoading} = useQuery({
-    enabled: !isUserLoading && !!userMail && !!isAuthorized,
     queryKey: ["requests"],
     queryFn: async () => await getAllRequests(),
   });
