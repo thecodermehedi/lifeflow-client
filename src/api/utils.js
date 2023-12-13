@@ -13,9 +13,10 @@ export const getUpazilas = async () => {
 
 export const uploadPhoto = async (photo) => {
   const formData = new FormData();
-  formData.append("image", photo);
+  formData.append("file", photo);
+  formData.append("upload_preset", "lifeflow_preset");
   const {data} = await axios.post(
-    `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`,
+    `https://api.cloudinary.com/v1_1/lifeflow-cloudinary/image/upload`,
     formData
   );
   return data;
