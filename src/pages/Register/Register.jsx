@@ -68,7 +68,7 @@ const Register = () => {
       const result = await createUser(email, password);
 
       // Update user profile
-      await updateUserProfile(name, photoData?.data?.display_url);
+      await updateUserProfile(name, photoData?.secure_url);
 
       // Save user to database
       const newUser = {
@@ -77,11 +77,11 @@ const Register = () => {
         district,
         upazila,
         bloodGroup,
-        avatar: result?.user?.photoURL || photoData?.data?.display_url,
+        avatar: result?.user?.photoURL || photoData?.secure_url,
         role: "donor",
         status: "active",
       };
-      
+
       await saveUserToDB(newUser);
 
       // Reset form
