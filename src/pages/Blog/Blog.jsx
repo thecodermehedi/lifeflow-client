@@ -20,7 +20,7 @@ const Blog = () => {
                   src={blog.cover}
                   loading="lazy"
                   alt={blog.title}
-                  className="w-full rounded-lg"
+                  className="w-full rounded-lg h-64 border-2 object-cover object-center"
                 />
                 <div className="mt-3 space-y-2">
                   <span className="block text-primary text-sm">
