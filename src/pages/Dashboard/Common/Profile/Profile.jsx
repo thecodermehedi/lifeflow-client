@@ -85,8 +85,8 @@ const Profile = () => {
         }
         if (photo) {
           const photoData = await uploadPhoto(photo);
-          profileUpdates.photoURL = photoData?.data?.display_url;
-          newInfo.avatar = photoData?.data?.display_url;
+          profileUpdates.photoURL = photoData?.secure_url;
+          newInfo.avatar = photoData?.secure_url;
         }
         await updateUserProfile(
           profileUpdates.displayName,
