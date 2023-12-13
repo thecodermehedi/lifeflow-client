@@ -41,22 +41,22 @@ const EditBlog = () => {
         date,
         time,
       };
-  
+
       if (title !== blog.title) {
         newBlogInfo.title = title;
       }
-  
+
       if (content !== blog.description) {
         newBlogInfo.description = content;
       }
-  
+
       if (photo && image.length > 0) {
         const photoData = await uploadPhoto(photo);
-        if (photoData?.data?.display_url !== blog.cover) {
-          newBlogInfo.cover = photoData?.data?.display_url;
+        if (photoData?.secure_url !== blog.cover) {
+          newBlogInfo.cover = photoData?.secure_url;
         }
       }
-  
+
       await updateBlogFn({id, newBlogInfo});
       reset();
       toast.dismiss(toastId);
@@ -91,8 +91,11 @@ const EditBlog = () => {
             htmlFor="file_input"
             className="text-left text-gray-900 text-sm mb-2 cursor-pointer"
           >
-            Update Cover (SVG, PNG, JPG, JPEG) 
-            (<Link className="text-blue-500" to={blog?.cover} target="_blank">View Current</Link>)
+            Update Cover (SVG, PNG, JPG, JPEG) (
+            <Link className="text-blue-500" to={blog?.cover} target="_blank">
+              View Current
+            </Link>
+            )
           </label>
 
           <input
