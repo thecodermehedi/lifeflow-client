@@ -2,10 +2,12 @@ import * as Dialog from "@radix-ui/react-dialog";
 import {Mail} from "react-feather";
 import useAuth from "../../../hooks/useAuth";
 import useRequest from "../../../hooks/useRequest";
+import emailjs from "@emailjs/browser";
 
 const DonateToggle = ({id}) => {
   const {user} = useAuth();
   const {UpdateStatusInProgress, updateRequestDonorFn} = useRequest();
+
 
   const handleUpdateRequestDonor = async () => {
     const donorInfo = {
@@ -14,6 +16,25 @@ const DonateToggle = ({id}) => {
     };
     await updateRequestDonorFn({id, donorInfo});
     await UpdateStatusInProgress(id);
+
+    emailjs
+      .send(
+        "service_lifeflow",
+        "template_lifeflow",
+        {
+          recipientName: user?.displayName,
+          recipientMail: user?.email,
+        },
+        "waOMcBKc8rgIPCuBC"
+      )
+      .then(
+        function (response) {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        function (error) {
+          console.log("FAILED...", error);
+        }
+      );
   };
 
   return (
