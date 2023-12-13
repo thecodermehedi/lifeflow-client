@@ -20,7 +20,7 @@ const DonationDetails = () => {
     return <Spinner />;
   }
   return (
-    <section className="w-fit mx-auto mb-10">
+    <section className="w-full max-w-6xl mx-auto mb-10">
       <div className="text-center font-bold mb-10 text-3xl">
         <h1>Blood Donation Details</h1>
       </div>
