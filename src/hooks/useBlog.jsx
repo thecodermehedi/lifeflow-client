@@ -1,17 +1,9 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import useUser from "./useUser";
-import useAuth from "./useAuth";
 import {addBlog, deleteBlog, getBlogs, updateBlog, updateBlogStatus} from "../api/blog";
 import toast from "react-hot-toast";
 const useBlog = () => {
   const queryClient = useQueryClient();
-  const {user, isUserLoading} = useAuth();
-  const userMail = user?.email;
-  const {currentUser} = useUser();
-  const isAuthorized =
-    currentUser?.role === "volunteer" || currentUser?.role === "admin";
   const {data: blogs = [], isLoading: isBlogsLoading} = useQuery({
-    enabled: !isUserLoading && !!userMail && !!isAuthorized,
     queryKey: ["blogs"],
     queryFn: async () => await getBlogs(),
   });
