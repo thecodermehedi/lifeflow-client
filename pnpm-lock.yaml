@@ -33,8 +33,8 @@ dependencies:
     specifier: ^10.6.0
     version: 10.6.0
   jodit-react:
-    specifier: ^1.3.39
-    version: 1.3.39(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^4.1.2
+    version: 4.1.2(react-dom@18.2.0)(react@18.2.0)
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -2033,6 +2033,7 @@ packages:
     resolution: {integrity: sha512-lo0kOocUlLKmm6kv/FswQL8zbkH7mVsLJ/FULClOhv8WRVmKLVcs6XPNQAzstfeJTCHMyButEwG+z1kHxHoDZw==}
     requiresBuild: true
     dev: false
+    optional: true
 
   /cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
@@ -2978,22 +2979,21 @@ packages:
     hasBin: true
     dev: true
 
-  /jodit-react@1.3.39(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-uZSRadPlgvcB6Wn54RGZ6XQEN+JHj0dB1SI4OH42yTC5WTeoYavksUwzCgFuQF4+janjSCxn0CXNqzd0MJEhVw==}
+  /jodit-react@4.1.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Hs1evpM1IK5zvy/5m5Gk819L8aC+9EmEdQvCoLHVUr/R3vtH4nYFD6wsMRj3ur3J4ZHhaSBjt0N3R7ggwP405Q==}
     peerDependencies:
       react: ~0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
       react-dom: ~0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      jodit: 3.24.9
+      jodit: 4.2.27
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /jodit@3.24.9:
-    resolution: {integrity: sha512-t2d73v7GFbGI08ZzdCTwrzi8ZtoOG4icGzD6IIN2e+ghlpUKYxcHZ/Rmy6/mc6055172z+tv7QSr9BcOz6IOFQ==}
+  /jodit@4.2.27:
+    resolution: {integrity: sha512-cqqeunB3HMElnocVhs5Qq2bhgpMIT2vKQPBpKcOTWKvX6GJ0GYAIneMEf43lphJuo+119CvBE8YgljD5iTfsAQ==}
     dependencies:
       autobind-decorator: 2.4.0
-      core-js: 3.33.3
     dev: false
 
   /js-tokens@4.0.0:
